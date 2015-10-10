@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <!-- A CardView that contains a TextView -->
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        card_view:elevation="5dp"
+        card_view:cardCornerRadius="4dp"
+        style="@style/CardView.Light">
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+        <LinearLayout
+            android:orientation="horizontal" android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1"
+            android:layout_weight="0.2"
+            android:layout_margin="0.25dp">
+            <TextView
+                android:id="@+id/material_item"
+                android:layout_width="match_parent"
+                android:layout_weight="0.15"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:padding="16dp"
+                android:layout_gravity="center"
+                style="@style/list_item_style2"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.85"
+                android:src="@drawable/outlined_star"
+                android:background="@color/white"
+                android:layout_toRightOf="@id/material_item"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_weight="0.5"
+            android:layout_height="match_parent"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:padding="8dp"
+            android:layout_gravity="center"
+            android:text="Route     Direction"
+            style="@style/list_item_style2"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_weight="0.3"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:padding="16dp"
+            android:layout_gravity="center"
+            android:text="No Predictions"
+            style="@style/list_item_style2"/>
+    </LinearLayout>
+    <!--<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hello"/> -->
+
+
+    </android.support.v7.widget.CardView>

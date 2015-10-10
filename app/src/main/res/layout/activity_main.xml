@@ -1,0 +1,144 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:title="UMD Bus"
+                android:titleTextColor="@color/white"
+                app:layout_scrollFlags="scroll|enterAlways"
+                android:background="@color/primary"
+                android:visibility="visible">
+
+            </android.support.v7.widget.Toolbar>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:layout_scrollFlags="scroll|enterAlways"></android.support.design.widget.TabLayout>
+        </android.support.design.widget.AppBarLayout>
+        <LinearLayout  android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/main_linear">
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="8dp"
+                card_view:cardBackgroundColor="@android:color/transparent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/off_white"
+                    >
+                    <TextView
+                        style="@style/list_item_style2"
+                        android:layout_marginTop="2dp"
+                        android:id="@+id/route_text"
+                        android:textSize="14dp"
+                        android:text="Route"
+                        android:padding="0.5dp" />
+                    <Spinner
+                        android:id="@+id/route_spinner"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        style="@style/spinner_style">
+                    </Spinner>
+                    <TextView
+                        android:id="@+id/direction_text"
+                        style="@style/list_item_style2"
+                        android:textSize="14dp"
+                        android:text="Direction"
+                        android:padding="0.5dp" />
+                    <Spinner
+                        android:id="@+id/dir_spinner"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        style="@style/spinner_style">
+                    </Spinner>
+                    <TextView
+                        android:id="@+id/stop_text"
+                        style="@style/list_item_style2"
+                        android:textSize="14dp"
+                        android:text="Stop"
+
+                        android:padding="2dp" />
+                    <Spinner
+                        android:id="@+id/stop_spinner"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        style="@style/spinner_style">
+                    </Spinner>
+                    <TextView
+                        android:id="@+id/eta_text"
+                        style="@style/list_item_style2"
+                        android:textSize="14dp"
+                        android:text="ETA"
+                        android:visibility="gone"
+                        android:padding="8dp" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/favorites_recycler_view"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/nearby_recycler_view"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0.25dp">
+                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="8dp"
+                    card_view:cardBackgroundColor="@android:color/transparent">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/ro_recycler_view"
+                        android:scrollbars="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible" />
+                </android.support.v7.widget.CardView>
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:rippleColor="@color/accent"
+        app:backgroundTint="@color/primary"
+        android:src="@drawable/outlined_star"
+        app:layout_anchor="@id/stop_spinner"
+        app:layout_anchorGravity="bottom|right|end" />
+
+
+</android.support.design.widget.CoordinatorLayout>
+

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- inherit from the material theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:textColorPrimary">@color/text</item>
+        <item name="android:textColorSecondary">@color/secondary_text</item>
+
+        <item name="actionOverflowMenuStyle">@style/PopupMenu</item>
+        <item name="android:spinnerStyle">@style/spinner_style</item>
+        <item name="android:colorBackground">@color/background_material_orange</item>
+
+    </style>
+    <style name="spinner_style" parent="@android:style/Widget.Holo.Spinner">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:spinnerMode">dialog</item>
+        <item name="android:layout_marginBottom">0.05dp</item>
+        <item name="android:background">?android:selectableItemBackground</item>
+        <item name="android:dropDownSelector">?android:selectableItemBackground</item>
+        <item name="android:divider">@null</item>
+
+    </style>
+
+    <style name="PopupMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:popupBackground">@android:color/black</item>
+    </style>
+    <style name="list_item_style2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_weight">0.15</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/white</item>
+       <!-- <item name="android:background">@drawable/ripple_drawable</item> -->
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/secondary_text</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+     <!--   <item name="android:elevation">0dp</item>
+        <item name="android:translationZ">2.5dp</item> -->
+        <item name="android:layout_marginTop">0.01dp</item>
+    </style>
+    <style name="nearby_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">4dp</item>
+
+        <item name="android:background">@color/white</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:layout_marginTop">0.01dp</item>
+    </style>
+    <style name="left_side_nearby" parent="nearby_style">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColor">@color/subtle_text</item>
+        <item name="android:gravity">right</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+    <style name="right_side_nearby" parent="nearby_style">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/prediction_text</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">8dp</item>
+    </style>
+
+</resources>

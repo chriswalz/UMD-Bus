@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+    <!-- Search, should appear as action button -->
+    <!-- <item android:id="@+id/action_fav"
+        android:icon="@drawable/ic_star_rate_black_18dp"
+        android:title="Favorite"
+        android:showAsAction="always"
+        android:orderInCategory="1"/> -->
+    <item android:id="@+id/resync_item" android:title="Resync Data"
+         app:showAsAction="never" android:orderInCategory="2" />
+    <!-- <item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="never" /> -->
+</menu>
