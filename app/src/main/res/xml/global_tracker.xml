@@ -14,7 +14,7 @@
     <integer name="ga_dispatchPeriod">10</integer>
 
     <!-- Treat events as test events and don't send to google -->
-    <bool name="ga_dryRun">true</bool>
+    <bool name="ga_dryRun">false</bool>
 
     <screenName name="com.joltimate.umdshuttle.MainActivity">MainActivity</screenName>
 </resources>
