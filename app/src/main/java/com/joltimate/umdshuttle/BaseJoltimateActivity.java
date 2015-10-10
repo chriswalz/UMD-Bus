@@ -63,7 +63,6 @@ public class BaseJoltimateActivity extends AppCompatActivity implements GoogleAp
         if (!mResolvingError ) {  // more about this later
             mGoogleApiClient.connect();
         } else {
-            Log.d("BaseJolt", "Rut roh");
         }
     }
     @Override
@@ -82,7 +81,7 @@ public class BaseJoltimateActivity extends AppCompatActivity implements GoogleAp
     }
     @Override
     public void onConnected(Bundle bundle) {
-        Log.d("BaseJolt", "App is connected");
+        DebuggingTools.logd("BaseJolt", "App is connected");
         initalizeLocationUpdates();
     }
     private void initalizeLocationUpdates(){
@@ -119,16 +118,16 @@ public class BaseJoltimateActivity extends AppCompatActivity implements GoogleAp
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.d("BaseJolt", "AOEU --- --- -ON LOCATION WAS CALLED- -------------AOEUAOEU");
+        DebuggingTools.logd("BaseJolt", "AOEU --- --- -ON LOCATION WAS CALLED- -------------AOEUAOEU");
         updateLocation(location);
     }
     private void updateLocation(Location location){
         mLastLocation = location;
         if ( mLastLocation != null){
             mLastLocation.setProvider("notnull");
-            Log.d("BaseJolt", "Location was a ref!");
+            //Log.d("BaseJolt", "Location was a ref!");
         } else {
-            Log.d("BaseJolt", "Location was null!");
+            //Log.d("BaseJolt", "Location was null!");
             mLastLocation = new Location("null");
         }
         NEAR.currentLocation = mLastLocation;
@@ -144,10 +143,10 @@ public class BaseJoltimateActivity extends AppCompatActivity implements GoogleAp
             //LocationRequest locationReq = createLocationRequest();
             //LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationReq, this);
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,  locationRequest, this);
-            Log.d("BaseJolt", "there is permission");
+            DebuggingTools.logd("BaseJolt", "there is permission");
         } else {
             // do nothing permission wasnt granted :(
-            Log.d("BaseJolt", "no permission");
+            DebuggingTools.logd("BaseJolt", "no permission");
         }
     }
     @Override

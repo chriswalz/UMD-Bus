@@ -76,7 +76,7 @@ public class ParseMultiplePredictions extends Parser {
         double num = Integer.valueOf(val);
         double minutes = num/60;
         int seconds = (int)((minutes - Math.floor(minutes))*60);
-        Log.e("ParseMultiplePredic", "" + minutes + " " + seconds + " " + (minutes == 0));
+        //Log.e("ParseMultiplePredic", "" + minutes + " " + seconds + " " + (minutes == 0));
         if (minutes == 0) {
             val = "Now";
         } else {

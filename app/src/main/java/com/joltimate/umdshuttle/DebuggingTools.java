@@ -9,7 +9,9 @@ import com.joltimate.umdshuttle.ScreenManagers.RO;
  * Created by Chris on 7/12/2015.
  */
 public class DebuggingTools {
+    public static final boolean ISDEBUG = true;
     private static String className = "Debugging Tools";
+
     public static void logCurrentTask(){
         switch (FetchXml.currentTask){
             case RO.AGENCIESTASK:
@@ -27,6 +29,12 @@ public class DebuggingTools {
             case RO.PREDICTIONTASK:
                 Log.d(className, "Predictions Task");
                 break;
+        }
+    }
+
+    public static void logd(String className, String message) {
+        if (ISDEBUG) {
+            Log.d(className, message);
         }
     }
 }

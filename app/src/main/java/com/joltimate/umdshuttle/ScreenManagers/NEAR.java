@@ -1,10 +1,10 @@
 package com.joltimate.umdshuttle.ScreenManagers;
 
 import android.location.Location;
-import android.util.Log;
 
 import com.joltimate.umdshuttle.Adapters.RecyclerNearbyAdapter;
 import com.joltimate.umdshuttle.BusEntry;
+import com.joltimate.umdshuttle.DebuggingTools;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -78,16 +78,16 @@ public class NEAR {
             b.setDirTag(errorLocations);
             b.setRouteTag(errorLocations);
             nearbyLocations.add(b);
-            Log.d("Near", "no nearby "+nearbyLocations.size()+" "+currentLocation.getProvider());
+            DebuggingTools.logd("Near", "no nearby " + nearbyLocations.size() + " " + currentLocation.getProvider());
         } else {
-            Log.d("Near", "should be nearby!!");
+            DebuggingTools.logd("Near", "should be nearby!!");
         }
         currentNearbyList = nearbyLocations;
     }
     private static double getDistanceFromCurrentLoc(Location location){  //also uses currentLatitude and currenentLongitude
         if ( location == null || currentLocation == null){
             if ( currentLocation == null){
-                Log.e("NEAR", "currentLocation was null");
+                DebuggingTools.logd("NEAR", "currentLocation was null");
             }
             return 10000;
         }
