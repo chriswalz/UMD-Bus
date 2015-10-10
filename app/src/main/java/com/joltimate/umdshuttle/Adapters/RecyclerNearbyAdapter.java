@@ -50,11 +50,7 @@ public class RecyclerNearbyAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if (NEAR.currentNearbyList != null) {
-                    //NEAR.currentNearbyList.get(i).updateView(imageView);
                     RO.setRouteDirectionAndStopAccordingToBusEntry(currentEntry);
-                    // RO.mainActivity.specialOnItemSelected();
-                    //Log.d("RecyclerNearbyAdapter", "This was clicked");
-                    //Overseer.changeToRVIEW();
                     MainActivity.tabLayout.getTabAt(0).select();
 
                 } else {

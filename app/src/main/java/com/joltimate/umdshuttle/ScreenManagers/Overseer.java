@@ -95,7 +95,7 @@ public class Overseer {
     public static void changeToFAVVIEW(){
         currentView = FAVVIEW;
         RO.mainActivity.setTitle("Favorites");
-        ArrayList<BusEntry> favorites = RO.getFavoritedItemsInList(); // todo change getFavorited to only access favorites in current area?
+        ArrayList<BusEntry> favorites = FAV.getFavoritedItemsInList(); // todo change getFavorited to only access favorites in current area?
         FAV.currentFavList = favorites;
         FetchXml.currentTask = RO.MULTPREDICTIONSTASK; //todo is this relevant?
         FetchMultiStopPredictions.startFetch(favorites);

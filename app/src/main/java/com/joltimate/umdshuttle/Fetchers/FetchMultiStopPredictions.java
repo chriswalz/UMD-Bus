@@ -3,7 +3,6 @@ package com.joltimate.umdshuttle.Fetchers;
 /**
  * Created by Chris on 7/7/2015.
  */
-import android.util.Log;
 
 import com.joltimate.umdshuttle.BusEntry;
 import com.joltimate.umdshuttle.MainActivity;
@@ -24,23 +23,6 @@ public class FetchMultiStopPredictions extends FetchXml {
         //currentTask = RO.MULTPREDICTIONSTASK; // todo should this exist?
     }
 
-    @Override
-    public Parser createParser(){
-        return new ParseMultiplePredictions();
-    }
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        MainActivity.swipeRefreshLayout.setRefreshing(true);
-    }
-    @Override //todo this method might not need to do anything
-    public void updateData(ArrayList<BusEntry> s){
-        RO.OnePredictionPerStop = s;
-        ArrayList<BusEntry> favorites = RO.getFavoritedItemsInList();
-        FAV.favAdapter.add(favorites);
-        //Log.d("OnePre", s.toString());
-        //Log.d("Favs", favorites.toString());
-    }
     public static void startFetch(ArrayList<BusEntry> stops){
 
         String multiPredictions = "http://webservices.nextbus.com/service/publicXMLFeed?command=predictionsForMultiStops&a="+RO.agency.getLink();
@@ -59,6 +41,27 @@ public class FetchMultiStopPredictions extends FetchXml {
         //Log.i("MultiStop", multiPredictions);
         new FetchMultiStopPredictions().execute(multiPredictions);
     }
+
+    @Override
+    public Parser createParser() {
+        return new ParseMultiplePredictions();
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        MainActivity.swipeRefreshLayout.setRefreshing(true);
+    }
+
+    @Override //todo this method might not need to do anything
+    public void updateData(ArrayList<BusEntry> s) {
+        RO.OnePredictionPerStop = s;
+        ArrayList<BusEntry> favorites = FAV.getFavoritedItemsInList();
+        FAV.favAdapter.add(favorites);
+        //Log.d("OnePre", s.toString());
+        //Log.d("Favs", favorites.toString());
+    }
+
     protected void onPostExecute(ArrayList<BusEntry> s) {
         super.onPostExecute(s);
 

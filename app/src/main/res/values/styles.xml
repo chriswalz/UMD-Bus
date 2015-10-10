@@ -27,9 +27,9 @@
     <style name="PopupMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
         <item name="android:popupBackground">@android:color/black</item>
     </style>
-    <style name="list_item_style2">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_weight">0.15</item>
+
+    <style name="basic_textview">
+        <!--     <item name="android:layout_weight">0.15</item> -->
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">normal</item>
@@ -37,13 +37,21 @@
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@color/white</item>
-       <!-- <item name="android:background">@drawable/ripple_drawable</item> -->
-        <item name="android:singleLine">true</item>
-        <item name="android:textColor">@color/secondary_text</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:fontFamily">sans-serif-medium</item>
-     <!--   <item name="android:elevation">0dp</item>
-        <item name="android:translationZ">2.5dp</item> -->
         <item name="android:layout_marginTop">0.01dp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="subtle_text" parent="basic_textview">
+        <item name="android:textColor">@color/subtle_text</item>
+    </style>
+
+    <style name="list_item_style2" parent="basic_textview">
+        <!-- <item name="android:background">@drawable/ripple_drawable</item> -->
+        <item name="android:textColor">@color/secondary_text</item>
+        <!--   <item name="android:elevation">0dp</item>
+           <item name="android:translationZ">2.5dp</item> -->
     </style>
     <style name="nearby_style">
         <item name="android:layout_width">match_parent</item>
@@ -58,7 +66,7 @@
     <style name="left_side_nearby" parent="nearby_style">
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">italic</item>
-        <item name="android:textColor">@color/subtle_text</item>
+        <item name="android:textColor">@color/prediction_text</item>
         <item name="android:gravity">right</item>
         <item name="android:paddingLeft">8dp</item>
         <item name="android:paddingRight">16dp</item>
@@ -66,7 +74,7 @@
     <style name="right_side_nearby" parent="nearby_style">
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textColor">@color/prediction_text</item>
+        <item name="android:textColor">@color/secondary_text</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">8dp</item>
     </style>

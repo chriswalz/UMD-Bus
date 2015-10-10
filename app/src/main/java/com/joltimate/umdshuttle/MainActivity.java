@@ -171,8 +171,27 @@ public class MainActivity extends BaseJoltimateActivity {
         //mRoRecyclerView.setHasFixedSize(true); // could cause problems, swipe to refresh could as well
 
         routeText = (TextView) findViewById(R.id.route_text);
+        routeText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                routeSpinner.performClick();
+                DebuggingTools.logd("a", "a");
+            }
+        });
         directionText = (TextView) findViewById(R.id.direction_text);
+        directionText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                directionSpinner.performClick();
+            }
+        });
         stopText = (TextView) findViewById(R.id.stop_text);
+        stopText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopSpinner.performClick();
+            }
+        });
         etaText = (TextView) findViewById(R.id.eta_text);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -228,7 +247,7 @@ public class MainActivity extends BaseJoltimateActivity {
                 RO.stop.toggleFavorited(null);
                 setUpMenuStar();
                 if (RO.stop.isFavorited()) {
-                    Snackbar.make(holder, RO.stop.getInfo() + " added to favorites", Snackbar.LENGTH_SHORT)
+                    Snackbar.make(holder, "Added to favorites", Snackbar.LENGTH_SHORT) //RO.stop.getInfo() +
                             .setAction("Undo", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -261,7 +280,7 @@ public class MainActivity extends BaseJoltimateActivity {
 
         setUpThemeColors();
         setUpTabs();
-
+        RO.setRouteDirectionAndStopAccordingToLastPosition();
     }
 
     private void setUpRouteSpinner() {
@@ -278,6 +297,7 @@ public class MainActivity extends BaseJoltimateActivity {
                 if ( !RO.nearbyIsClicked){
                     RO.route = RO.routeAdapter.getItem(position);
                     RO.updateDirections(position, directionSpinner);
+                    RO.lastRoutePosition = position;
                     //Log.d("MainActivity", "routeSpinner was selected");
                 }
                 //FetchPredictions.startFetch();
@@ -301,6 +321,7 @@ public class MainActivity extends BaseJoltimateActivity {
                 if ( RO.direction != null && !RO.nearbyIsClicked){
                     RO.direction = RO.directionAdapter.getItem(position);
                     RO.updateStops(position, stopSpinner);
+                    RO.lastDirectionPosition = position;
                 }
             }
 
@@ -318,6 +339,8 @@ public class MainActivity extends BaseJoltimateActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 RO.stop = RO.stopAdapter.getItem(position);
+                RO.lastStopPosition = position;
+                DataStorage.saveCurrentRouteStopDirectionPosition();
                 //Log.i("MainActivity", RO.stop.getRouteTag());
                 if (!RO.nearbyIsClicked) {
                 } else {

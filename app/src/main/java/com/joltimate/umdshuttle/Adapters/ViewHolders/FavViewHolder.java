@@ -3,7 +3,6 @@ package com.joltimate.umdshuttle.Adapters.ViewHolders;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.joltimate.umdshuttle.Fetchers.FetchXml;
@@ -20,12 +19,12 @@ public class FavViewHolder extends ViewHolder {
     public FavViewHolder (CardView cv) {
         super(cv);
         cardView = cv;
-        LinearLayout outerLayout = (LinearLayout) cardView.getChildAt(0);
+        /*LinearLayout outerLayout = (LinearLayout) cardView.getChildAt(0);
         LinearLayout l = (LinearLayout) outerLayout.getChildAt(0);
         mTextView = (TextView) l.getChildAt(0);
         imageView = (ImageView) l.getChildAt(1);
         mTextView.setOnClickListener(this);
-        imageView.setOnClickListener(this);
+        imageView.setOnClickListener(this);*/
     }
 
     @Override

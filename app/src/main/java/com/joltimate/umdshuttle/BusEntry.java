@@ -5,7 +5,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.joltimate.umdshuttle.Data.DataStorage;
-import com.joltimate.umdshuttle.ScreenManagers.RO;
+import com.joltimate.umdshuttle.ScreenManagers.FAV;
 
 /**
  * Created by Chris on 7/4/2015.
@@ -79,13 +79,13 @@ public class BusEntry implements Comparable<BusEntry> {
             if ( imageView != null){
                 imageView.setImageResource(R.drawable.outlined_star);
             }
-            DataStorage.saveFavorites(RO.getFavoritedItemsInList());
+            DataStorage.saveFavorites(FAV.getFavoritedItemsInList());
         } else {
             isFavorited = true;
             if ( imageView != null ){
                 imageView.setImageResource(R.drawable.star);
             }
-            DataStorage.saveFavorites(RO.getFavoritedItemsInList());
+            DataStorage.saveFavorites(FAV.getFavoritedItemsInList());
         }
     }
     public String getLink(){

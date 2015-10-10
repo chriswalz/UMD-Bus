@@ -15,7 +15,6 @@ import com.joltimate.umdshuttle.R;
 import com.joltimate.umdshuttle.SpinnerAdapters.BusSpinnerAdapter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by Chris on 6/30/2015.
@@ -48,6 +47,10 @@ public class RO {
     public static ArrayList<BusEntry> OnePredictionPerStop;
     public static ArrayList<BusEntry> currentRList;
     public static boolean nearbyIsClicked = false;
+
+    public static int lastRoutePosition = 0;
+    public static int lastDirectionPosition = 0;
+    public static int lastStopPosition = 0;
 
     static {
         routes = new ArrayList<BusEntry>();
@@ -116,6 +119,7 @@ public class RO {
         mainActivity.setTitle("Directions");
         FetchXml.currentTask = RO.DIRECTIONSTASK;
         int routePos = getRoutePosition();
+        lastRoutePosition = routePos;
          if ( r == null ){
             rAdapter.add(RO.directions.get(routePos));
             currentRList = RO.directions.get(routePos);
@@ -142,7 +146,8 @@ public class RO {
         FetchXml.currentTask = RO.STOPSTASK;
         int routePos = getRoutePosition();
         int dirPos = getDirectionPosition();
-
+        lastRoutePosition = routePos;
+        lastDirectionPosition = dirPos;
         if ( routePos <= -1 || dirPos <= -1){
             if (!DataStorage.isSyncing){
                 Log.e("Ro", "Data was never downloaded from the internet");
@@ -227,43 +232,19 @@ public class RO {
         DataStorage.isSyncing = false;
     }
 
-    public static ArrayList<BusEntry> getFavoritedItemsInList(){
-        int i, j, k;
-        BusEntry entry;
-        ArrayList<BusEntry> favorites = new ArrayList<>();
-        ArrayList<BusEntry> temp;
-        for ( i = 0; i < stops.size(); i++){
-            for ( j = 0; j < stops.get(i).size(); j++){
-                temp = stops.get(i).get(j);
-                if ( temp != null ){
-                    for ( k = 0; k < temp.size(); k++){
-                        entry = temp.get(k);
-                        if ( entry.isFavorited() ){
-                            entry.setRouteTag(routes.get(i).getLink()); // need link for getting times, info for proper output :/
-                            entry.setDirTag(directions.get(i).get(j).getLink());
-                            String rTag = routes.get(i).getInfo();
-                            String dTag = directions.get(i).get(j).getInfo();
-                            if ( dTag == null){
-                                dTag = "No Direction";
-                            }
-                            if (rTag == null){
-                                rTag = "No Route";
-                            }
-                            entry.setFavRouteDirInfo(rTag + "         " + dTag);
-                            entry.setSpecialCompare(entry.getInfo()+entry.getRouteTag());
-                            favorites.add(entry);
-                        }
-                    }
-                }
-            }
-        }
-        BusEntry.state = BusEntry.INFOROUTE;
-        Collections.sort(favorites);
-        BusEntry.state = BusEntry.REGULAR;
-        if ( favorites.size() == 0 ){
-            favorites.add(new BusEntry("No Favorites","No favorites"));
-        }
-        return favorites;
+    public static void setRouteDirectionAndStopAccordingToLastPosition() {
+        nearbyIsClicked = true;
+        RO.route = RO.routes.get(RO.lastRoutePosition);
+        MainActivity.routeSpinner.setSelection(RO.lastRoutePosition);
+
+        updateDirections(RO.lastRoutePosition, MainActivity.directionSpinner);
+        RO.direction = RO.directions.get(RO.lastRoutePosition).get(RO.lastDirectionPosition);
+        MainActivity.directionSpinner.setSelection(RO.lastDirectionPosition);
+
+        updateStops(RO.lastDirectionPosition, MainActivity.stopSpinner);
+        RO.stop = RO.stops.get(RO.lastRoutePosition).get(RO.lastDirectionPosition).get(lastStopPosition);
+        MainActivity.stopSpinner.setSelection(lastStopPosition);
+        MainActivity.tabLayout.getTabAt(0).select();
     }
 
     public static void setRouteDirectionAndStopAccordingToBusEntry(BusEntry busEntry){

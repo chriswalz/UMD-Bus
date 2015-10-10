@@ -121,6 +121,7 @@ public class DataStorage {
            // Log.i("DataStorage","Getting data");
             getAllData();
             updateDataWithFavorites();
+            getCurrentRouteStopDirectionPosition();
             RO.changeToRoutes(null);
         }
     }
@@ -180,5 +181,35 @@ public class DataStorage {
     public static void resyncData(){
         isSyncing = true;
         FetchRoutes.startFetch();
+    }
+
+    public static void saveCurrentRouteStopDirectionPosition() {
+        SharedPreferences sp = PreferenceManager
+                .getDefaultSharedPreferences(RO.mainActivity.getApplicationContext());//getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt("routePos", RO.lastRoutePosition);
+        editor.putInt("dirPos", RO.lastDirectionPosition);
+        editor.putInt("stopPos", RO.lastStopPosition);
+        editor.commit();
+    }
+
+    public static void getCurrentRouteStopDirectionPosition() {
+        SharedPreferences sp = PreferenceManager
+                .getDefaultSharedPreferences(RO.mainActivity.getApplicationContext());//getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+        RO.lastRoutePosition = sp.getInt("routePos", 0);
+        RO.lastDirectionPosition = sp.getInt("dirPos", 0);
+        RO.lastStopPosition = sp.getInt("stopPos", 0);
+        if (RO.lastRoutePosition >= RO.routes.size()) {
+            RO.lastRoutePosition = 0;
+        }
+        if (RO.lastDirectionPosition >= RO.directions.get(RO.lastRoutePosition).size()) {
+            RO.lastRoutePosition = 0;
+            RO.lastDirectionPosition = 0;
+        }
+        if (RO.lastStopPosition >= RO.stops.get(RO.lastRoutePosition).get(RO.lastDirectionPosition).size()) {
+            RO.lastRoutePosition = 0;
+            RO.lastDirectionPosition = 0;
+            RO.lastStopPosition = 0;
+        }
     }
 }

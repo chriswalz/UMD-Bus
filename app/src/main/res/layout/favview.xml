@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginTop="6dp"
+    android:background="@color/common_signin_btn_light_text_default"
+    card_view:cardCornerRadius="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.75"
+            android:background="@color/off_white"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/left_side_nearby"
+                android:layout_weight="0.25"
+                android:text="Route:" />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/left_side_nearby"
+                android:layout_weight="0.25"
+                android:text="Direction:" />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/left_side_nearby"
+                android:layout_weight="0.25"
+                android:text="Stop:" />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/left_side_nearby"
+                android:layout_weight="0.25"
+                android:text="Prediction:" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25"
+            android:background="@color/off_white"
+            android:orientation="vertical"
+            android:paddingLeft="0.1dp"
+            android:weightSum="1">
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/right_side_nearby"
+                android:layout_weight="0.25" />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/right_side_nearby"
+                android:layout_weight="0.25" />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/right_side_nearby"
+                android:layout_weight="0.25" />
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/right_side_nearby"
+                android:layout_weight="0.25" />
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

@@ -9,7 +9,7 @@ import com.joltimate.umdshuttle.ScreenManagers.RO;
  * Created by Chris on 7/12/2015.
  */
 public class DebuggingTools {
-    public static final boolean ISDEBUG = true;
+    public static final boolean ISDEBUG = false;
     private static String className = "Debugging Tools";
 
     public static void logCurrentTask(){

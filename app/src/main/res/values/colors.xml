@@ -6,14 +6,16 @@
     <!-- <item name="fab_color" type="color">#D32F2F</item> -->
     <item name="text" type="color">#FFFFFF</item>
     <item name="secondary_text" type="color">#ff212121</item>
-    <item name="subtle_text" type="color">#666666</item>
+    <item name="subtle_text" type="color">#313131</item>
+    <!-- #666666-->
   <!--  <item name="window_background" type="color">#FFA000</item> -->
 
     <item name="white" type="color">#FFFFFF</item>
     <item name="off_white" type="color">#CCCCCC</item>
 
     <item name="black_overlay" type="color">#66000000</item>
-    <item name="prediction_text" type="color">#313131</item>
+    <item name="prediction_text" type="color">#575757</item>
+    <!--#313131 -->
     <color name="background_material_dark">#b6b6b6</color>
     <color name="background_material_orange">#F57C00</color>
 </resources>
