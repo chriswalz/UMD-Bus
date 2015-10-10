@@ -15,15 +15,13 @@ import java.util.Collections;
  * Created by Chris on 6/10/2015.
  */
 public class ParseMultiplePredictions extends Parser {
-    String noPredictions = "Bus Not Running";
-
     // search terms
     private final String direction = "direction";
     private final String prediction = "prediction";
     // attributes
     private final String seconds = "seconds";
     private final String tag = "seconds";
-
+    String noPredictions = "Bus Not Running";
     private String stopInfo;
     private String routeLink;
 
@@ -78,7 +76,12 @@ public class ParseMultiplePredictions extends Parser {
         double num = Integer.valueOf(val);
         double minutes = num/60;
         int seconds = (int)((minutes - Math.floor(minutes))*60);
-        val = ((int)minutes)+" minutes "+seconds+" seconds";
+        Log.e("ParseMultiplePredic", "" + minutes + " " + seconds + " " + (minutes == 0));
+        if (minutes == 0) {
+            val = "Now";
+        } else {
+            val = ((int) minutes) + " minutes " + seconds + " seconds";
+        }
         return val;
     }
 }

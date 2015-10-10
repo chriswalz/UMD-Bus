@@ -11,9 +11,9 @@ import android.widget.TextView;
 import com.joltimate.umdshuttle.Adapters.ViewHolders.NearbyViewHolder;
 import com.joltimate.umdshuttle.Adapters.ViewHolders.ViewHolder;
 import com.joltimate.umdshuttle.BusEntry;
+import com.joltimate.umdshuttle.MainActivity;
 import com.joltimate.umdshuttle.R;
 import com.joltimate.umdshuttle.ScreenManagers.NEAR;
-import com.joltimate.umdshuttle.ScreenManagers.Overseer;
 import com.joltimate.umdshuttle.ScreenManagers.RO;
 
 /**
@@ -55,7 +55,7 @@ public class RecyclerNearbyAdapter extends BaseAdapter {
                     // RO.mainActivity.specialOnItemSelected();
                     //Log.d("RecyclerNearbyAdapter", "This was clicked");
                     //Overseer.changeToRVIEW();
-                    RO.mainActivity.tabLayout.getTabAt(0).select();
+                    MainActivity.tabLayout.getTabAt(0).select();
 
                 } else {
                     Log.e("RecyclerNearbyAdapter", "Error on click nearby view");

@@ -17,14 +17,14 @@ import com.joltimate.umdshuttle.ScreenManagers.RO;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Chris on 7/11/2015.
  */
 public class DataStorage {
-    private static String className = "DataStorage";
     public static boolean isSyncing = false;
+    private static String className = "DataStorage";
+
     private static void saveDataList(ArrayList<BusEntry> list, String key1, String thisDoesNothnig){
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(RO.mainActivity.getApplicationContext());
@@ -80,12 +80,6 @@ public class DataStorage {
         String r = "ro";
         String d = "d";
         String s = "s";
-        /*
-        if getString.equals "" FetchRoutes.start
-        else getDataStorage?
-         */
-        int i,j, x = 0;
-        //Log.d(className, "Began Saving");
         RO.mainActivity.mRoRecyclerView.setVisibility(View.GONE);
         saveDataList(RO.routes, r, null);
         saveDataList(RO.directions, d, 0);
@@ -99,7 +93,6 @@ public class DataStorage {
         String d = "d";
         String s = "s";
 
-        int i,j, x = 0;
         //Log.d(className, "Began retrieval");
         RO.routes = (ArrayList<BusEntry>)getDataList(r, RO.ROUTESTASK); // <---
         RO.directions = (ArrayList<ArrayList<BusEntry>>)getDataList(d, RO.DIRECTIONSTASK); // <---
@@ -145,13 +138,13 @@ public class DataStorage {
         Gson gson = new Gson();
         String jsonEntries = gson.toJson(entries);
         //Log.d("TAG", "jsonCars = " + jsonEntries);
-        prefsEditor.putString("favs", jsonEntries);
+        prefsEditor.putString("fav", jsonEntries);
         prefsEditor.commit();
     }
     private static void updateDataWithFavorites(){
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(RO.mainActivity.getApplicationContext());
-        String jsonString = appSharedPrefs.getString("favs", ""); // TODO use empty string as an if statement to determine if you need to recache
+        String jsonString = appSharedPrefs.getString("fav", ""); // TODO use empty string as an if statement to determine if you need to recache
         if ( jsonString.equals("")) return;
         Type type = new TypeToken<ArrayList<BusEntry>>(){}.getType();
         Gson gson = new Gson();
@@ -166,7 +159,7 @@ public class DataStorage {
                     for (k = 0; k < temp.size(); k++) {
                         for (k = 0; k < temp.size(); k++) {
                             entry = temp.get(k);
-                            if (favorites.contains(entry)) {
+                            if (entry != null && favorites.contains(entry)) {
                                 for ( m = 0; m < favorites.size(); m++){
                                     BusEntry fav=favorites.get(m);
                                     String tempRouteLink = RO.routes.get(i).getLink();

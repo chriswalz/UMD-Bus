@@ -1,12 +1,12 @@
 package com.joltimate.umdshuttle.SpinnerAdapters;
+
 import android.content.Context;
 import android.graphics.Typeface;
-import android.util.Log;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
@@ -80,7 +80,7 @@ public class BusSpinnerAdapter extends ArrayAdapter<BusEntry> implements Spinner
         //Log.d("BusSpinnerAdapter", mDataset.toString());
         route.setText(mDataset.get(position).getInfo());
         route.setTypeface(null, Typeface.BOLD);
-        route.setTextColor(context.getResources().getColor(R.color.secondary_text));
+        route.setTextColor(ContextCompat.getColor(context, R.color.secondary_text));
         return convertView;
     }
 

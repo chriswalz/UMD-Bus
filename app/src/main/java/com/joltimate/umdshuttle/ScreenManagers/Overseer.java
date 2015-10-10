@@ -2,6 +2,7 @@ package com.joltimate.umdshuttle.ScreenManagers;
 
 import android.animation.Animator;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 
@@ -9,6 +10,7 @@ import com.joltimate.umdshuttle.BusEntry;
 import com.joltimate.umdshuttle.Fetchers.FetchMultiStopPredictions;
 import com.joltimate.umdshuttle.Fetchers.FetchPredictions;
 import com.joltimate.umdshuttle.Fetchers.FetchXml;
+import com.joltimate.umdshuttle.MainActivity;
 
 import java.util.ArrayList;
 
@@ -27,30 +29,30 @@ public class Overseer {
         RO.mainActivity.mRoRecyclerView.setVisibility(View.GONE);
         RO.mainActivity.mFavoritesRecyclerView.setVisibility(View.GONE);
         RO.mainActivity.mNearbyRecyclerView.setVisibility(View.GONE);
-        RO.mainActivity.routeSpinner.setVisibility(View.GONE);
-        RO.mainActivity.directionSpinner.setVisibility(View.GONE);
-        RO.mainActivity.stopSpinner.setVisibility(View.GONE);
+        MainActivity.routeSpinner.setVisibility(View.GONE);
+        MainActivity.directionSpinner.setVisibility(View.GONE);
+        MainActivity.stopSpinner.setVisibility(View.GONE);
 
-        RO.mainActivity.routeText.setVisibility(View.GONE);
-        RO.mainActivity.directionText.setVisibility(View.GONE);
-        RO.mainActivity.stopText.setVisibility(View.GONE);
-        RO.mainActivity.etaText.setVisibility(View.GONE);
+        MainActivity.routeText.setVisibility(View.GONE);
+        MainActivity.directionText.setVisibility(View.GONE);
+        MainActivity.stopText.setVisibility(View.GONE);
+        MainActivity.etaText.setVisibility(View.GONE);
         //RO.mainActivity.menuMain.getItem(0).setVisible(false);
 
-        RO.mainActivity.fab.setVisibility(View.GONE);
+        MainActivity.fab.setVisibility(View.GONE);
 
         // except
         switch (currentView){
             case RVIEW:
                 RO.mainActivity.mRoRecyclerView.setVisibility(View.VISIBLE);
-                RO.mainActivity.routeSpinner.setVisibility(View.VISIBLE);
-                RO.mainActivity.directionSpinner.setVisibility(View.VISIBLE);
-                RO.mainActivity.stopSpinner.setVisibility(View.VISIBLE);
-                RO.mainActivity.routeText.setVisibility(View.VISIBLE);
-                RO.mainActivity.directionText.setVisibility(View.VISIBLE);
-                RO.mainActivity.stopText.setVisibility(View.VISIBLE);
+                MainActivity.routeSpinner.setVisibility(View.VISIBLE);
+                MainActivity.directionSpinner.setVisibility(View.VISIBLE);
+                MainActivity.stopSpinner.setVisibility(View.VISIBLE);
+                MainActivity.routeText.setVisibility(View.VISIBLE);
+                MainActivity.directionText.setVisibility(View.VISIBLE);
+                MainActivity.stopText.setVisibility(View.VISIBLE);
                 //RO.mainActivity.etaText.setVisibility(View.VISIBLE);
-                RO.mainActivity.fab.setVisibility(View.VISIBLE);
+                MainActivity.fab.setVisibility(View.VISIBLE);
                 //RO.mainActivity.menuMain.getItem(0).setVisible(true);
                 break;
             case FAVVIEW:
@@ -106,11 +108,22 @@ public class Overseer {
         currentView = NEARBYVIEW;
         makeAllGoneExcept();
         RO.mainActivity.setTitle("Nearby");
-        ArrayList<BusEntry> nearby = new ArrayList<BusEntry>();
         NEAR.updateNearbyAdapter();
         //animateViewChange(RO.mainActivity.mainLayout, 900);
         RO.sendAnalytics("Nearby");
         RO.mainActivity.enableLocationPermission();
+    }
+
+    public static void refreshCurrentView() {
+        if (currentView == RVIEW) {
+            changeToRVIEW();
+        } else if (currentView == FAVVIEW) {
+            changeToFAVVIEW();
+        } else if (currentView == NEARBYVIEW) {
+            changeToNEARView();
+        } else {
+            Log.e("Overseer", "currentView was invalid");
+        }
     }
     public static void animateViewChange(View view, int x ){
         if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){

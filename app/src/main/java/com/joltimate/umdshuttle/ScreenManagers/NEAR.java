@@ -1,8 +1,6 @@
 package com.joltimate.umdshuttle.ScreenManagers;
 
-import android.Manifest;
 import android.location.Location;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import com.joltimate.umdshuttle.Adapters.RecyclerNearbyAdapter;
@@ -18,7 +16,7 @@ import java.util.List;
 public class NEAR {
     public static List<BusEntry> currentNearbyList;
     public static RecyclerNearbyAdapter nearbyAdapter;
-    public static Location currentLocation = new Location("null");;
+    public static Location currentLocation = new Location("null");
 
     public static void updateNearbyAdapter(){
         getNearbyLocationsAndUpdate();

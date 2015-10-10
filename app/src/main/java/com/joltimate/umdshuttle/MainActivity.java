@@ -1,5 +1,6 @@
 package com.joltimate.umdshuttle;
 
+
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,11 +8,12 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,17 +23,18 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import com.joltimate.umdshuttle.Adapters.RecyclerFavAdapter;
 import com.joltimate.umdshuttle.Adapters.RecyclerNearbyAdapter;
 import com.joltimate.umdshuttle.Adapters.RecyclerRouteAdapter;
 import com.joltimate.umdshuttle.Data.DataStorage;
 import com.joltimate.umdshuttle.Fetchers.FetchPredictions;
 import com.joltimate.umdshuttle.Fetchers.FetchXml;
-import com.joltimate.umdshuttle.SpinnerAdapters.BusSpinnerAdapter;
 import com.joltimate.umdshuttle.ScreenManagers.FAV;
 import com.joltimate.umdshuttle.ScreenManagers.NEAR;
 import com.joltimate.umdshuttle.ScreenManagers.Overseer;
 import com.joltimate.umdshuttle.ScreenManagers.RO;
+import com.joltimate.umdshuttle.SpinnerAdapters.BusSpinnerAdapter;
 
 import java.util.ArrayList;
 /*
@@ -130,28 +133,30 @@ fix in accurate stops,
 
 public class MainActivity extends BaseJoltimateActivity {
     public static SwipeRefreshLayout swipeRefreshLayout;
-    // public TextView routeView;
-    public RecyclerView mRoRecyclerView;
-    public RecyclerView mFavoritesRecyclerView;
-    public RecyclerView mNearbyRecyclerView;
     public static Spinner routeSpinner;
     public static Spinner directionSpinner;
     public static Spinner stopSpinner;
-
     public static TextView routeText;
     public static TextView directionText;
     public static TextView stopText;
     public static TextView etaText;
-
     public static FloatingActionButton fab;
+    public static int directionsPosition = 0;
+    public static TabLayout tabLayout;
+    // public TextView routeView;
+    public RecyclerView mRoRecyclerView;
+    public RecyclerView mFavoritesRecyclerView;
+    public RecyclerView mNearbyRecyclerView;
+    public Menu menuMain;
+    public CoordinatorLayout holder;
+    public LinearLayout mainLayout;
     //private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager roLinLayoutManager;
     private RecyclerView.LayoutManager favLinLayoutManager;
     private RecyclerView.LayoutManager nearbyLinLayoutManager;
-    public Menu menuMain;
-    public CoordinatorLayout holder;
-    public LinearLayout mainLayout;
     private boolean ranOnce2 = false;
+    private boolean ranOnce = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -208,7 +213,7 @@ public class MainActivity extends BaseJoltimateActivity {
                         //Log.d("MainActivity", String.valueOf(FetchXml.currentTask == RO.PREDICTIONTASK));
                         if (FetchXml.currentTask == RO.PREDICTIONTASK) {
                             //FetchXml.startFetch(); // refreshing current list
-                            ArrayList<BusEntry> stopList = new ArrayList<BusEntry>();
+                            ArrayList<BusEntry> stopList = new ArrayList<>();
                             stopList.add(RO.stop);
                             FetchPredictions.startFetch(stopList);
                         } else {
@@ -258,7 +263,8 @@ public class MainActivity extends BaseJoltimateActivity {
         setUpTabs();
 
     }
-    private void setUpRouteSpinner(){;
+
+    private void setUpRouteSpinner() {
         routeSpinner = (Spinner) findViewById(R.id.route_spinner);
         if ( RO.routes != null ){
             RO.routeAdapter = new BusSpinnerAdapter(this, R.layout.material_item, RO.routes);
@@ -283,8 +289,8 @@ public class MainActivity extends BaseJoltimateActivity {
             }
         });
     }
-    public static int directionsPosition = 0;
-    private void setUpDirectionSpinner(){;
+
+    private void setUpDirectionSpinner() {
         directionSpinner = (Spinner) findViewById(R.id.dir_spinner);
         RO.updateDirections(0, directionSpinner);
         directionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -304,7 +310,8 @@ public class MainActivity extends BaseJoltimateActivity {
             }
         });
     }
-    private void setUpStopSpinner(){;
+
+    private void setUpStopSpinner() {
         stopSpinner = (Spinner) findViewById(R.id.stop_spinner);
         RO.updateStops(0, stopSpinner);
         stopSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -312,7 +319,7 @@ public class MainActivity extends BaseJoltimateActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 RO.stop = RO.stopAdapter.getItem(position);
                 //Log.i("MainActivity", RO.stop.getRouteTag());
-                if ( !RO.nearbyIsClicked){
+                if (!RO.nearbyIsClicked) {
                 } else {
                     RO.nearbyIsClicked = false;
                 }
@@ -325,12 +332,14 @@ public class MainActivity extends BaseJoltimateActivity {
             }
         });
     }
+
     public void specialOnItemSelected(){
-        ArrayList<BusEntry> stopList = new ArrayList<BusEntry>();
+        ArrayList<BusEntry> stopList = new ArrayList<>();
         stopList.add(RO.stop);
         FetchPredictions.startFetch(stopList);
         setUpMenuStar();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -341,9 +350,6 @@ public class MainActivity extends BaseJoltimateActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -359,11 +365,14 @@ public class MainActivity extends BaseJoltimateActivity {
                 Snackbar.make(RO.mainActivity.holder, "No internet connection.", Snackbar.LENGTH_LONG).show();
             }
             return true;
+        } else if (id == R.id.action_refresh) {
+            Overseer.refreshCurrentView();
         }
 
 
         return super.onOptionsItemSelected(item);
     }
+
     public void setUpMenuStar(){
         if (RO.stop.isFavorited()){
             fab.setImageResource(R.drawable.star);
@@ -373,24 +382,26 @@ public class MainActivity extends BaseJoltimateActivity {
            // menuMain.getItem(0).setIcon(R.drawable.outlined_star);
         }
     }
+
     private void setUpThemeColors(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.rgb(211, 47, 47));
+            //window.setStatusBarColor(Color.rgb(211, 47, 47));
+            window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.primary));
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if(toolbar != null) {
             setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle("UMD Bus");
-            getSupportActionBar().setIcon(R.mipmap.ic_launcher);
-           // getSupportActionBar().
-            //getSupportActionBar().setSubtitle("Fast, Accurate, Ad Free");
+            final ActionBar supportActionBar = getSupportActionBar();
+            if (supportActionBar != null) {
+                getSupportActionBar().setTitle("UMD Bus");
+                getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+            }
         }
-
-        //bar.setBackgroundDrawable(new ColorDrawable(Color.rgb(244, 67, 54)));
     }
+
     private void makeSnackBar(){
         Snackbar.make(holder, "Welcome", Snackbar.LENGTH_SHORT)
                 .setAction("Dismiss", new View.OnClickListener() {
@@ -401,8 +412,7 @@ public class MainActivity extends BaseJoltimateActivity {
                 })
                 .show();
     }
-    private boolean ranOnce = false;
-    public static TabLayout tabLayout;
+
     private void setUpTabs(){
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);

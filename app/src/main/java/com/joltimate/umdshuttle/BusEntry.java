@@ -11,26 +11,24 @@ import com.joltimate.umdshuttle.ScreenManagers.RO;
  * Created by Chris on 7/4/2015.
  */
 public class BusEntry implements Comparable<BusEntry> {
-    private String info;
-    private String link;
-    private boolean isFavorited;
-
-    private String extra; // for favorites ??
-    private String routeTag;
-    private String dirTag;
-    private String favRouteDirInfo;
-    private String specialCompare;
-    public Location location; //decided to make data public so i dont have to make getters and setters
-    public Double distance = 100000.0;
-    public int routePosition = -1;
-    public int directionPosition = -1;
-    public int stopPosition = -1;
-
     public final static int DISTANCE = 3;
     public final static int NUMBERS = 2;
     public final static int INFOROUTE = 1;
     public final static int REGULAR = 0;
     public static int state = 0;
+    public Location location; //decided to make data public so i dont have to make getters and setters
+    public Double distance = 100000.0;
+    public int routePosition = -1;
+    public int directionPosition = -1;
+    public int stopPosition = -1;
+    private String info;
+    private String link;
+    private boolean isFavorited;
+    private String extra; // for favorites ??
+    private String routeTag;
+    private String dirTag;
+    private String favRouteDirInfo;
+    private String specialCompare;
 
     public BusEntry(String info, String link){
         this.info = info;
@@ -147,17 +145,5 @@ public class BusEntry implements Comparable<BusEntry> {
 
     public String toString(){
         return info;
-    }
-    public static boolean isNumeric(String str)
-    {
-        try
-        {
-            double d = Double.parseDouble(str);
-        }
-        catch(NumberFormatException nfe)
-        {
-            return false;
-        }
-        return true;
     }
 }

@@ -24,18 +24,16 @@ import com.joltimate.umdshuttle.ScreenManagers.Overseer;
  * Created by Chris on 7/14/2015.
  */
 public class BaseJoltimateActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
-    private String TAG = "com.joltimate.mainActivity";
-    private String screenName = "Routes Screen";
-    public static Tracker t;
-    protected Location mLastLocation;
-
-    protected GoogleApiClient mGoogleApiClient;
     private static final int REQUEST_RESOLVE_ERROR = 1001;
     private static final String DIALOG_ERROR = "dialog_error";
-    private boolean mResolvingError = false;
-
+    public static Tracker t;
     private final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 4;
+    protected Location mLastLocation;
+    protected GoogleApiClient mGoogleApiClient;
     LocationRequest locationRequest = getLocationRequest();
+    private String TAG = "com.joltimate.mainActivity";
+    private String screenName = "Routes Screen";
+    private boolean mResolvingError = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +76,8 @@ public class BaseJoltimateActivity extends AppCompatActivity implements GoogleAp
     private LocationRequest getLocationRequest(){
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(5000);
-        locationRequest.setFastestInterval(1000);
+        locationRequest.setInterval(20000);
+        locationRequest.setFastestInterval(6000);
         return locationRequest;
     }
     @Override
@@ -136,13 +134,6 @@ public class BaseJoltimateActivity extends AppCompatActivity implements GoogleAp
         NEAR.currentLocation = mLastLocation;
     }
 
-    protected LocationRequest createLocationRequest() {
-        LocationRequest mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(0);
-        mLocationRequest.setFastestInterval(0);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        return mLocationRequest;
-    }
     private boolean isLocationPermissionGranted(){
         return PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION);
         //return true;

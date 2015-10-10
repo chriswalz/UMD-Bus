@@ -21,25 +21,23 @@ import java.util.Collections;
  * Created by Chris on 6/30/2015.
  */
 public class RO {
-    // TODO this is probably bad practice..
-    public static MainActivity mainActivity;
-    public static RecyclerRouteAdapter rAdapter;
-    public static BusSpinnerAdapter routeAdapter;
-    public static BusSpinnerAdapter directionAdapter;
-    public static BusSpinnerAdapter stopAdapter;
-
-    public static BusEntry agency = new BusEntry("UMD", "umd");
-   // public static BusEntry agency = new BusEntry("Bronx", "bronx");
-    public static BusEntry route = new BusEntry("Bio Park", "701");
-    public static BusEntry direction = new BusEntry("Denton","");
-    public static BusEntry stop = new BusEntry("Regents Garage","47113"); // change to bus entry
-
     public static final int MULTPREDICTIONSTASK = 88;
     public static final int PREDICTIONTASK = 89;
     public static final int STOPSTASK = 90;
     public static final int DIRECTIONSTASK = 91;
     public static final int ROUTESTASK = 92;
     public static final int AGENCIESTASK = 93;
+    // TODO this is probably bad practice..
+    public static MainActivity mainActivity;
+    public static RecyclerRouteAdapter rAdapter;
+    public static BusSpinnerAdapter routeAdapter;
+    public static BusSpinnerAdapter directionAdapter;
+    public static BusSpinnerAdapter stopAdapter;
+    public static BusEntry agency = new BusEntry("UMD", "umd");
+   // public static BusEntry agency = new BusEntry("Bronx", "bronx");
+    public static BusEntry route = new BusEntry("Bio Park", "701");
+    public static BusEntry direction = new BusEntry("Denton","");
+    public static BusEntry stop = new BusEntry("Regents Garage","47113"); // change to bus entry
     //important data
     public static ArrayList<BusEntry> agencies;
 
@@ -47,6 +45,10 @@ public class RO {
     public static ArrayList<ArrayList<BusEntry>> directions = new ArrayList<ArrayList<BusEntry>>();
     public static ArrayList<ArrayList<ArrayList<BusEntry>>> stops = new ArrayList<ArrayList<ArrayList<BusEntry>>>(); // new ArrayList[40][6];
     public static ArrayList<BusEntry> predictions = new ArrayList<>();
+    public static ArrayList<BusEntry> OnePredictionPerStop;
+    public static ArrayList<BusEntry> currentRList;
+    public static boolean nearbyIsClicked = false;
+
     static {
         routes = new ArrayList<BusEntry>();
         routes.add(new BusEntry("No Routes", ""));
@@ -59,9 +61,6 @@ public class RO {
         stops.get(0).get(0).add(new BusEntry("No Stops", ""));
         predictions.add(new BusEntry("No Predictions",""));
     }
-    public static ArrayList<BusEntry> OnePredictionPerStop;
-
-    public static ArrayList<BusEntry> currentRList;
 
     public static void updateDirections(int position, Spinner directionSpinner){
         if ( RO.directions != null ){
@@ -78,6 +77,7 @@ public class RO {
         }
          */
     }
+
     public static void updateStops(int position, Spinner stopsSpinner){
         if ( RO.stops != null ){
             RO.stopAdapter = new BusSpinnerAdapter(mainActivity, R.layout.material_item, RO.stops.get(MainActivity.directionsPosition).get(position));
@@ -85,6 +85,7 @@ public class RO {
             //Snackbar.make(mainActivity.holder, "change to STOPS", Snackbar.LENGTH_LONG).show();
         }
     }
+
     public static void changeToAgencies(ArrayList<BusEntry> a){
         mainActivity.setTitle("Agencies");
         FetchXml.currentTask = RO.AGENCIESTASK;
@@ -97,6 +98,7 @@ public class RO {
         }
         commonTasks();
     }
+
     public static void changeToRoutes(ArrayList<BusEntry> r){
         mainActivity.setTitle("Routes");
         FetchXml.currentTask = RO.ROUTESTASK;
@@ -109,6 +111,7 @@ public class RO {
         }
         commonTasks();
     }
+
     public static void changeToDirections(ArrayList<BusEntry> r, BusEntry newDirection){
         mainActivity.setTitle("Directions");
         FetchXml.currentTask = RO.DIRECTIONSTASK;
@@ -133,6 +136,7 @@ public class RO {
         }
         commonTasks();
     }
+
     public static void changeToStops(ArrayList<BusEntry> s, BusEntry newStop){
         mainActivity.setTitle("Stops");
         FetchXml.currentTask = RO.STOPSTASK;
@@ -162,6 +166,7 @@ public class RO {
         }
         commonTasks();
     }
+
     public static void changeToPredictions(ArrayList<BusEntry> p){
         mainActivity.setTitle("UMD Bus");
         FetchXml.currentTask = RO.PREDICTIONTASK;
@@ -175,10 +180,12 @@ public class RO {
         commonTasks();
         sendAnalytics("Routes");
     }
+
     private static void commonTasks(){
         // Set screen name.
        //sendAnalytics();
     }
+
     public static void sendAnalytics(String screenTitle){
         if ( !DataStorage.isSyncing){
             MainActivity.t.setScreenName(screenTitle);
@@ -194,6 +201,7 @@ public class RO {
         }
         return routePos;
     }
+
     public static int getDirectionPosition(){
         int routePos = getRoutePosition();
         int dirPos = directions.get(routePos).indexOf(direction);
@@ -202,6 +210,7 @@ public class RO {
         }
         return dirPos;
     }
+
     public static void onCacheFinish(){
         RO.changeToRoutes(null);
         DataStorage.saveAllData();
@@ -209,14 +218,15 @@ public class RO {
         //MainActivity.swipeRefreshLayout.setRefreshing(false);
         //Log.e("NOO", "nooooo");
         RO.routeAdapter = new BusSpinnerAdapter(mainActivity, R.layout.material_item, RO.routes);
-        mainActivity.routeSpinner.setAdapter(RO.routeAdapter);
+        MainActivity.routeSpinner.setAdapter(RO.routeAdapter);
         RO.directionAdapter = new BusSpinnerAdapter(mainActivity, R.layout.material_item, RO.directions.get(0));
-        mainActivity.directionSpinner.setAdapter(RO.directionAdapter);
+        MainActivity.directionSpinner.setAdapter(RO.directionAdapter);
         RO.stopAdapter = new BusSpinnerAdapter(mainActivity, R.layout.material_item, RO.stops.get(0).get(0));
-        mainActivity.stopSpinner.setAdapter(RO.stopAdapter);
+        MainActivity.stopSpinner.setAdapter(RO.stopAdapter);
         RO.mainActivity.mRoRecyclerView.setVisibility(View.VISIBLE);
         DataStorage.isSyncing = false;
     }
+
     public static ArrayList<BusEntry> getFavoritedItemsInList(){
         int i, j, k;
         BusEntry entry;
@@ -255,7 +265,7 @@ public class RO {
         }
         return favorites;
     }
-    public static boolean nearbyIsClicked = false;
+
     public static void setRouteDirectionAndStopAccordingToBusEntry(BusEntry busEntry){
         int routePos = busEntry.routePosition;
         int dirPos = busEntry.directionPosition;
@@ -265,14 +275,25 @@ public class RO {
         }
         nearbyIsClicked = true;
         RO.route = RO.routes.get(routePos);
-        mainActivity.routeSpinner.setSelection(routePos);
+        MainActivity.routeSpinner.setSelection(routePos);
 
-        updateDirections(routePos, mainActivity.directionSpinner);
+        updateDirections(routePos, MainActivity.directionSpinner);
         RO.direction = RO.directions.get(routePos).get(dirPos);
-        mainActivity.directionSpinner.setSelection(dirPos);
+        MainActivity.directionSpinner.setSelection(dirPos);
 
-        updateStops(dirPos, mainActivity.stopSpinner);
+        updateStops(dirPos, MainActivity.stopSpinner);
         RO.stop = RO.stops.get(routePos).get(dirPos).get(busEntry.stopPosition);
-        mainActivity.stopSpinner.setSelection(stopPos);
+        MainActivity.stopSpinner.setSelection(stopPos);
+    }
+
+    public static boolean isValidRouteDirStopPosition(int routePos, int dirPos, int stopPos) {
+        if (routePos < routes.size()) {
+            if (directions.get(routePos).size() < dirPos) {
+                if (stops.get(routePos).get(dirPos).size() < stopPos) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
