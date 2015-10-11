@@ -45,6 +45,10 @@ public class RecyclerNearbyAdapter extends BaseAdapter {
         dirView.setText(mDataset.get(i).getDirTag());
         TextView stopView= (TextView) l.getChildAt(2);
         stopView.setText(mDataset.get(i).getInfo());
+        TextView distanceView = (TextView) l.getChildAt(3);
+        Double distanceInFeet = (3.28084 * mDataset.get(i).distance);
+        distanceView.setText("~" + Math.round(distanceInFeet) + " feet");
+
         final BusEntry currentEntry = NEAR.currentNearbyList.get(i);
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
