@@ -154,8 +154,9 @@ public class MainActivity extends BaseJoltimateActivity {
     private RecyclerView.LayoutManager roLinLayoutManager;
     private RecyclerView.LayoutManager favLinLayoutManager;
     private RecyclerView.LayoutManager nearbyLinLayoutManager;
-    private boolean ranOnce2 = false;
-    private boolean ranOnce = false;
+    //private boolean ranOnce2 = false;
+    //private boolean ranOnce = false;
+    private boolean hasData = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -271,8 +272,8 @@ public class MainActivity extends BaseJoltimateActivity {
         });
 
 
-        makeSnackBar();
-        DataStorage.handleDataStorage(false); // must be run after setOnRefreshlistener
+        //makeSnackBar();
+        hasData = DataStorage.handleDataStorage(false); // must be run after setOnRefreshlistener
         //RO.changeToPredictions(null);
         setUpRouteSpinner();
         setUpDirectionSpinner();
@@ -281,6 +282,14 @@ public class MainActivity extends BaseJoltimateActivity {
         setUpThemeColors();
         setUpTabs();
         RO.setRouteDirectionAndStopAccordingToLastPosition();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (hasData) {
+            makeSnackBar();
+        }
     }
 
     private void setUpRouteSpinner() {
@@ -318,7 +327,7 @@ public class MainActivity extends BaseJoltimateActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //TextView textView = (TextView) view.findViewById(R.id.material_item);
                 //Log.i("MainActivity", " "+RO.direction.getInfo());
-                if ( RO.direction != null && !RO.nearbyIsClicked){
+                if (RO.direction != null && !RO.nearbyIsClicked) {
                     RO.direction = RO.directionAdapter.getItem(position);
                     RO.updateStops(position, stopSpinner);
                     RO.lastDirectionPosition = position;
@@ -426,14 +435,20 @@ public class MainActivity extends BaseJoltimateActivity {
     }
 
     private void makeSnackBar(){
-        Snackbar.make(holder, "Welcome", Snackbar.LENGTH_SHORT)
-                .setAction("Dismiss", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+        String helloText;
+        if (DataStorage.isNetworkAvailable()) {
+            //helloText = "Welcome back";
+        } else {
+            helloText = "There is no internet connection";
+            Snackbar.make(holder, helloText, Snackbar.LENGTH_SHORT)
+                    .setAction("Dismiss", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
-                    }
-                })
-                .show();
+                        }
+                    })
+                    .show();
+        }
     }
 
     private void setUpTabs(){

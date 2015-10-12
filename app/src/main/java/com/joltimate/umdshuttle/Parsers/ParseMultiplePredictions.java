@@ -1,8 +1,7 @@
 package com.joltimate.umdshuttle.Parsers;
 
-import android.util.Log;
-
 import com.joltimate.umdshuttle.BusEntry;
+import com.joltimate.umdshuttle.DebuggingTools;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -34,7 +33,7 @@ public class ParseMultiplePredictions extends Parser {
                 stopInfo = getAttributeValue(parser, "stopTitle");
                 routeLink = getAttributeValue(parser, "routeTag");
                 String noPredictions = getAttributeValue(parser, "dirTitleBecauseNoPredictions"); // if this equals error predictions are available
-                Log.d("ParseMultPre", "DirTitleValue = "+noPredictions);
+                DebuggingTools.logd("ParseMultPre", "DirTitleValue = " + noPredictions);
                 if ( !noPredictions.equals("Error")){
                     BusEntry noP = new BusEntry(stopInfo, "No Bus Running");
                     noP.setSpecialCompare(stopInfo + routeLink);

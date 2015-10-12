@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.joltimate.umdshuttle.Adapters.ViewHolders.FavViewHolder;
 import com.joltimate.umdshuttle.Adapters.ViewHolders.ViewHolder;
 import com.joltimate.umdshuttle.BusEntry;
+import com.joltimate.umdshuttle.DebuggingTools;
 import com.joltimate.umdshuttle.MainActivity;
 import com.joltimate.umdshuttle.R;
 import com.joltimate.umdshuttle.ScreenManagers.FAV;
@@ -68,7 +69,7 @@ public class RecyclerFavAdapter extends BaseAdapter {
         if (FAV.currentFavList != null) {
             BusEntry favStop = FAV.currentFavList.get(i);
             //ImageView imageView = (ImageView)l.getChildAt(1);
-            Log.d("Favorites", "Stop: " + favStop.getInfo() + "Route: " + favStop.getRouteTag() + "Dir: " + favStop.getDirTag()); // fav stop is null for first thing?
+            DebuggingTools.logd("Favorites", "Stop: " + favStop.getInfo() + "Route: " + favStop.getRouteTag() + "Dir: " + favStop.getDirTag()); // fav stop is null for first thing?
             if (favStop != null) {
                 //  favStop.updateView(imageView);
             }

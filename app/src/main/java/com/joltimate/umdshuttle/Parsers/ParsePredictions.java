@@ -1,5 +1,4 @@
 package com.joltimate.umdshuttle.Parsers;
-import android.util.Log;
 
 import com.joltimate.umdshuttle.BusEntry;
 
@@ -34,7 +33,7 @@ public class ParsePredictions extends Parser {
         BusEntry.state = BusEntry.REGULAR;
         // add error text post sort always
         if ( entries.size() == 0 ){
-            Log.e("ParseMultiPredictions", "No predictions");
+            //  Log.e("ParseMultiPredictions", "No predictions");
             entries.add(new BusEntry(noPredictions, noPredictions));
         }
         return entries;

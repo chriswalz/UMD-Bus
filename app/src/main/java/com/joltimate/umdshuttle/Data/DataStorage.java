@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -81,9 +82,14 @@ public class DataStorage {
         String d = "d";
         String s = "s";
         RO.mainActivity.mRoRecyclerView.setVisibility(View.GONE);
-        saveDataList(RO.routes, r, null);
-        saveDataList(RO.directions, d, 0);
-        saveDataList(RO.stops, s);
+        try {
+            saveDataList(RO.routes, r, null);
+            saveDataList(RO.directions, d, 0);
+            saveDataList(RO.stops, s);
+        } catch (IllegalStateException ie) {
+            Log.e("DataStorage", "Illegal state exception saveAllData");
+            RO.sendAnalytics("IllegalStateExceptionSaveAll");
+        }
         RO.mainActivity.mRoRecyclerView.setVisibility(View.VISIBLE);
        // Log.d(className, "Finished Saving");
 
@@ -94,13 +100,19 @@ public class DataStorage {
         String s = "s";
 
         //Log.d(className, "Began retrieval");
-        RO.routes = (ArrayList<BusEntry>)getDataList(r, RO.ROUTESTASK); // <---
-        RO.directions = (ArrayList<ArrayList<BusEntry>>)getDataList(d, RO.DIRECTIONSTASK); // <---
-        RO.stops = (ArrayList<ArrayList<ArrayList<BusEntry>>>)getDataList(s, RO.STOPSTASK); //<-----
+        try {
+            RO.routes = (ArrayList<BusEntry>) getDataList(r, RO.ROUTESTASK); // <---
+            RO.directions = (ArrayList<ArrayList<BusEntry>>) getDataList(d, RO.DIRECTIONSTASK); // <---
+            RO.stops = (ArrayList<ArrayList<ArrayList<BusEntry>>>) getDataList(s, RO.STOPSTASK); //<-----
+        } catch (IllegalStateException ie) {
+            Log.e("DataStorage", "Illegal state exception, getAllData");
+            RO.sendAnalytics("IllegalStateExceptionGetAll");
+        }
 
         //Log.d(className, "Completed Retrieval");
     }
-    public static void handleDataStorage(boolean force){
+
+    public static boolean handleDataStorage(boolean force) {
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(RO.mainActivity.getApplicationContext());
         String jsonString = appSharedPrefs.getString("ro", "");
@@ -110,19 +122,21 @@ public class DataStorage {
         if ( jsonString.length() <= 130 && isNetworkAvailable()){
             Snackbar.make(RO.mainActivity.holder, "Loading data - this only happens once.", Snackbar.LENGTH_LONG).show();
             resyncData();
-            return;
+            return false;
         }
         if ( (jsonString.equals("") || force)  ){ // todo this will only run when nothing is saved. Resynch button will actually run getALLdata ??????
             // Toast.makeText(RO.mainActivity.getApplicationContext(),"Loading data - this only happens once.",Toast.LENGTH_LONG).show();
             MainActivity.swipeRefreshLayout.setRefreshing(true);
-            //FetchRoutes.startFetch();
+            Snackbar.make(RO.mainActivity.holder, "Loading data - this only happens once.", Snackbar.LENGTH_LONG).show();
             resyncData();
+            return false;
         } else {
            // Log.i("DataStorage","Getting data");
             getAllData();
             updateDataWithFavorites();
             getCurrentRouteStopDirectionPosition();
             RO.changeToRoutes(null);
+            return true;
         }
     }
     public static boolean isNetworkAvailable() {
