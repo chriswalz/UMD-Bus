@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1"
-    android:layout_marginBottom=".025dp">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="0.25dp">
     <TextView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/material_item"
         style="@style/list_item_style2"/>
-    <ImageView
+    <!--<ImageView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.85"
         android:src="@drawable/ic_star_rate_black_18dp"
         android:background="@color/white"
-        android:layout_toRightOf="@id/material_item"/>
+        android:layout_toRightOf="@id/material_item"/> -->
 </LinearLayout>

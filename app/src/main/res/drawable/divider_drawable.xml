@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <size android:height="1.1dp" />
+    <gradient
+        android:centerColor="#BBBBBB"
+        android:endColor="@color/prediction_text"
+        android:startColor="@color/black_overlay" />
+    <corners android:radius="8dp" />
+</shape>

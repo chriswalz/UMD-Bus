@@ -26,7 +26,7 @@ public class DataStorage {
     public static boolean isSyncing = false;
     private static String className = "DataStorage";
 
-    private static void saveDataList(ArrayList<BusEntry> list, String key1, String thisDoesNothnig){
+    private static void saveDataListSimple(ArrayList<BusEntry> list, String key1, String thisDoesNothnig){
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(RO.mainActivity.getApplicationContext());
         SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
@@ -38,7 +38,7 @@ public class DataStorage {
         prefsEditor.commit();
 
     }
-    private static void saveDataList(ArrayList<ArrayList<BusEntry>> list, String key1, int thisDoesNothing){
+    private static void saveDataList2D(ArrayList<ArrayList<BusEntry>> list, String key1, int thisDoesNothing){
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(RO.mainActivity.getApplicationContext());
         SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
@@ -50,7 +50,7 @@ public class DataStorage {
         prefsEditor.commit();
 
     }
-    private static void saveDataList(ArrayList<ArrayList<ArrayList<BusEntry>>> list, String key1){
+    private static void saveDataList3D(ArrayList<ArrayList<ArrayList<BusEntry>>> list, String key1){
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(RO.mainActivity.getApplicationContext());
         SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
@@ -78,14 +78,14 @@ public class DataStorage {
         return gson.fromJson(jsonString, type);
     }
     public static void saveAllData(){
-        String r = "ro";
-        String d = "d";
-        String s = "s";
+        String r = "rou";
+        String d = "di";
+        String s = "st";
         RO.mainActivity.mRoRecyclerView.setVisibility(View.GONE);
         try {
-            saveDataList(RO.routes, r, null);
-            saveDataList(RO.directions, d, 0);
-            saveDataList(RO.stops, s);
+            saveDataListSimple(RO.routes, r, null);
+            saveDataList2D(RO.directions, d, 0);
+            saveDataList3D(RO.stops, s);
         } catch (IllegalStateException ie) {
             Log.e("DataStorage", "Illegal state exception saveAllData");
             RO.sendAnalytics("IllegalStateExceptionSaveAll");
@@ -95,9 +95,9 @@ public class DataStorage {
 
     }
     public static void getAllData(){
-        String r = "ro";
-        String d = "d";
-        String s = "s";
+        String r = "rou";
+        String d = "di";
+        String s = "st";
 
         //Log.d(className, "Began retrieval");
         try {
@@ -115,7 +115,7 @@ public class DataStorage {
     public static boolean handleDataStorage(boolean force) {
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(RO.mainActivity.getApplicationContext());
-        String jsonString = appSharedPrefs.getString("ro", "");
+        String jsonString = appSharedPrefs.getString("rou", "");
         //Log.d("DATA STORAGE", jsonString+"  |||||||||||||||||||||||");
         // "[{\"info\":\"No Times Available\",\"isFavorited\":false,\"link\":\"No Times Available\"}]"
         // 130 is really arbitrary but if there was route inforamiotn it'd be over 9000 characters
@@ -153,13 +153,13 @@ public class DataStorage {
         Gson gson = new Gson();
         String jsonEntries = gson.toJson(entries);
         //Log.d("TAG", "jsonCars = " + jsonEntries);
-        prefsEditor.putString("fav", jsonEntries);
+        prefsEditor.putString("favo", jsonEntries);
         prefsEditor.commit();
     }
     private static void updateDataWithFavorites(){
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(RO.mainActivity.getApplicationContext());
-        String jsonString = appSharedPrefs.getString("fav", ""); // TODO use empty string as an if statement to determine if you need to recache
+        String jsonString = appSharedPrefs.getString("favo", ""); // TODO use empty string as an if statement to determine if you need to recache
         if ( jsonString.equals("")) return;
         Type type = new TypeToken<ArrayList<BusEntry>>(){}.getType();
         Gson gson = new Gson();

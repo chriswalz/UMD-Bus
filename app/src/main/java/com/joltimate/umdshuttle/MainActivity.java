@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.joltimate.umdshuttle.Adapters.DecorDivider;
 import com.joltimate.umdshuttle.Adapters.RecyclerFavAdapter;
 import com.joltimate.umdshuttle.Adapters.RecyclerNearbyAdapter;
 import com.joltimate.umdshuttle.Adapters.RecyclerRouteAdapter;
@@ -201,14 +202,17 @@ public class MainActivity extends BaseJoltimateActivity {
         // use a linear layout manager
         roLinLayoutManager = new LinearLayoutManager(this);
         mRoRecyclerView.setLayoutManager(roLinLayoutManager);
+        //mRoRecyclerView.addItemDecoration(new DecorDivider(this, R.drawable.divider_drawable));
         favLinLayoutManager = new LinearLayoutManager(this);
         mFavoritesRecyclerView.setLayoutManager(favLinLayoutManager);
+        //mFavoritesRecyclerView.addItemDecoration(new DecorDivider(this, R.drawable.divider_drawable));
+
         nearbyLinLayoutManager = new LinearLayoutManager(this);
         mNearbyRecyclerView.setLayoutManager(nearbyLinLayoutManager);//new GridLayoutManager(this, 2));
-
         // specify an rAdapter (see also next example)
         RO.rAdapter = new RecyclerRouteAdapter();
         mRoRecyclerView.setAdapter(RO.rAdapter);
+
 
         FAV.favAdapter = new RecyclerFavAdapter();
         mFavoritesRecyclerView.setAdapter(FAV.favAdapter);

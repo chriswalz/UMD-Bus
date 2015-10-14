@@ -24,8 +24,8 @@ android {
         applicationId "com.joltimate.umdshuttle"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 14
-        versionName "1.4.2"
+        versionCode 16
+        versionName "1.4.4"
     }
     buildTypes {
         release {

@@ -40,14 +40,14 @@ public class RecyclerRouteAdapter extends BaseAdapter {
         textView.setText(mDataset.get(i).getInfo());
 
         textView.setTextColor(ContextCompat.getColor(RO.mainActivity.getApplicationContext(), R.color.prediction_text));
-        ImageView imageView = (ImageView) routeViewHolder.linearLayout.getChildAt(1);
+/*        ImageView imageView = (ImageView) routeViewHolder.linearLayout.getChildAt(1);
         imageView.setVisibility(View.GONE);
         if ( FetchXml.currentTask == RO.STOPSTASK){
             imageView.setVisibility(View.VISIBLE);
         }
         if ( RO.currentRList != null){
             RO.currentRList.get(i).updateView(imageView);
-        }
+        } */
 
     }
 

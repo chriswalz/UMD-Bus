@@ -20,9 +20,9 @@ public class RouteViewHolder extends ViewHolder {
         super(l);
         linearLayout = l;
         mTextView = (TextView) l.getChildAt(0);
-        imageView = (ImageView) l.getChildAt(1);
+//        imageView = (ImageView) l.getChildAt(1);
         mTextView.setOnClickListener(this);
-        imageView.setOnClickListener(this);
+  //      imageView.setOnClickListener(this);
     }
 
     @Override
